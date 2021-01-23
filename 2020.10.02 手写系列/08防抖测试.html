@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防抖测试</title>
+    <style>
+        div {
+            width: 100%;
+            height: 50vh;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+<script>
+    let div = document.querySelector('div')
+
+    function logNum() {
+        console.dir('111')
+    }
+
+    function debounce(fn, delay, immediate) {
+        let timeout = null
+        let context = this
+        return function () {
+            let args = arguments
+            clearTimeout(timeout)
+            if (immediate) {
+                let doNow = !timeout
+                timeout = setTimeout(function () {
+                    timeout = null
+                }, delay)
+
+                if (doNow) {
+                    fn.call(context, args)
+                }
+            } else {
+                timeout = setTimeout(function () {
+                    fn.call(context, args)
+                    console.log(context)
+                }, delay)
+            }
+        }
+    }
+    div.addEventListener('mousemove', debounce(logNum, 500, true))
+</script>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="myForm" name="myForm">
+        <div>
+            <label for="username">账号</label>
+            <input type="text" id="username" name="username">
+        </div>
+        <div>
+            <label for="password">密码</label>
+            <input type="text" id="password" name="password">
+        </div>
+        <div>
+            <label for="userfile">头像</label>
+            <input type="file" id="userfile" name="userfile">
+        </div>
+        <input type="submit" value="Submit!">
+    </form>
+    <button>按钮</button>
+</body>
+
+<script>
+    let myForm = document.getElementById('myForm')
+    formData = new FormData()
+
+    let file = null
+
+    let inputImg = document.querySelector('#userfile')
+    inputImg.addEventListener('change', function () {
+        file = this.files[0]
+        console.log(file)
+        formData.append('userfile', file)
+        console.log(formData.get('userfile'))
+    })
+
+    // formData.append(username, "123")
+    // formData.append(password, "abc")
+    // formData.append(userfile, )
+
+    let button = document.querySelector('button')
+    button.addEventListener('click', function () {
+        console.log(formData)
+    })
+</script>
+
+</html>

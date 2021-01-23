@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100%;
+            height: 50vh;
+            background-color: lightblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+<script>
+    let div = document.querySelector('div')
+
+    function throttle(fn, delay) {
+        let timeout = null
+        let context = this
+        return function () {
+            if (!timeout) {
+                timeout = setTimeout(function () {
+                    fn.call(context, arguments)
+                    timeout = null
+                }, delay)
+            }
+        }
+    }
+
+    function logNum() {
+        console.log(111);
+    }
+    div.addEventListener('mousemove', throttle(logNum, 500))
+</script>
+
+</html>

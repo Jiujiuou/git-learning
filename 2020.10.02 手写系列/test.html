@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <boy></boy>
+        <girl></girl>
+    </div>
+    <template id="boy">
+        <div>
+            <p v-if="isCry">crying...</p>
+        </div>
+    </template>
+    <template id="girl">
+        <div>
+            <button @click="hitBoy">hit boy</button>
+        </div>
+    </template>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+    const bus = new Vue()
+    Vue.component('boy', {
+        template: "#boy",
+        data() {
+            return {
+                isCry: true
+            }
+        },
+        methods: {
+            changeCry() {
+                this.isCry = !this.isCry
+            }
+        },
+        mounted () {
+            bus.$on('hit', this.changeCry)
+        }
+    })
+
+    Vue.component('girl', {
+        template: "#girl",
+        methods: {
+            hitBoy() {
+                bus.$emit('hit')
+            }
+        }
+    })
+    const app = new Vue({
+        el: "#app"
+    })
+</script>
+
+</html>
